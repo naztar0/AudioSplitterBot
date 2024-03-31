@@ -1,0 +1,115 @@
+# Translations template for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-03-30 22:41+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: app/bot.py:28
+msgid "select_language"
+msgstr ""
+
+#: app/bot.py:38
+msgid "language_changed"
+msgstr ""
+
+#: app/bot.py:43
+msgid "start_message"
+msgstr ""
+
+#: app/bot.py:54
+msgid "choose_mode"
+msgstr ""
+
+#: app/bot.py:85
+msgid "choose_level"
+msgstr ""
+
+#: app/bot.py:91
+msgid "send_audiofile"
+msgstr ""
+
+#: app/bot.py:96
+msgid "file_too_big"
+msgstr ""
+
+#: app/bot.py:98
+msgid "file_too_long"
+msgstr ""
+
+#: app/bot.py:108
+msgid "max_processes"
+msgstr ""
+
+#: app/bot.py:110
+msgid "processing"
+msgstr ""
+
+#: app/utils/utils.py:48
+msgid "english"
+msgstr ""
+
+#: app/utils/utils.py:48
+msgid "ukrainian"
+msgstr ""
+
+#: app/utils/utils.py:48
+msgid "russian"
+msgstr ""
+
+#: app/utils/utils.py:52
+msgid "vocals"
+msgstr ""
+
+#: app/utils/utils.py:53
+msgid "voice"
+msgstr ""
+
+#: app/utils/utils.py:54
+msgid "drum"
+msgstr ""
+
+#: app/utils/utils.py:55
+msgid "bass"
+msgstr ""
+
+#: app/utils/utils.py:56
+msgid "electric_guitar"
+msgstr ""
+
+#: app/utils/utils.py:57
+msgid "acoustic_guitar"
+msgstr ""
+
+#: app/utils/utils.py:58
+msgid "piano"
+msgstr ""
+
+#: app/utils/utils.py:59
+msgid "synthesizer"
+msgstr ""
+
+#: app/utils/utils.py:62
+msgid "low"
+msgstr ""
+
+#: app/utils/utils.py:63
+msgid "middle"
+msgstr ""
+
+#: app/utils/utils.py:64
+msgid "high"
+msgstr ""
+

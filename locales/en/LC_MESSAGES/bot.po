@@ -1,0 +1,118 @@
+# English translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-03-30 22:41+0100\n"
+"PO-Revision-Date: 2024-03-29 03:48+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: app/bot.py:28
+msgid "select_language"
+msgstr "Select language"
+
+#: app/bot.py:38
+msgid "language_changed"
+msgstr "Language changed to English"
+
+#: app/bot.py:43
+msgid "start_message"
+msgstr ""
+"Hello! I can split an audio file into separate channels. Just choose the "
+"processing mode and send me an audio file"
+
+#: app/bot.py:54
+msgid "choose_mode"
+msgstr "Choose the mode for audio processing"
+
+#: app/bot.py:85
+msgid "choose_level"
+msgstr "Choose the level of processing strength"
+
+#: app/bot.py:91
+msgid "send_audiofile"
+msgstr "Send me an audio file"
+
+#: app/bot.py:96
+msgid "file_too_big"
+msgstr "File is too big, max 20MB"
+
+#: app/bot.py:98
+msgid "file_too_long"
+msgstr "File is too long, max 6 minutes"
+
+#: app/bot.py:108
+msgid "max_processes"
+msgstr "You have reached the maximum number of processes"
+
+#: app/bot.py:110
+msgid "processing"
+msgstr "Your file is being processed, please wait"
+
+#: app/utils/utils.py:48
+msgid "english"
+msgstr "🇬🇧 English"
+
+#: app/utils/utils.py:48
+msgid "ukrainian"
+msgstr "🇺🇦 Українська"
+
+#: app/utils/utils.py:48
+msgid "russian"
+msgstr "🇷🇺 Русский"
+
+#: app/utils/utils.py:52
+msgid "vocals"
+msgstr "Vocals"
+
+#: app/utils/utils.py:53
+msgid "voice"
+msgstr "Voice"
+
+#: app/utils/utils.py:54
+msgid "drum"
+msgstr "Drum"
+
+#: app/utils/utils.py:55
+msgid "bass"
+msgstr "Bass"
+
+#: app/utils/utils.py:56
+msgid "electric_guitar"
+msgstr "Electric guitar"
+
+#: app/utils/utils.py:57
+msgid "acoustic_guitar"
+msgstr "Acoustic guitar"
+
+#: app/utils/utils.py:58
+msgid "piano"
+msgstr "Piano"
+
+#: app/utils/utils.py:59
+msgid "synthesizer"
+msgstr "Synthesizer"
+
+#: app/utils/utils.py:62
+msgid "low"
+msgstr "Low"
+
+#: app/utils/utils.py:63
+msgid "middle"
+msgstr "Middle"
+
+#: app/utils/utils.py:64
+msgid "high"
+msgstr "High"
+
