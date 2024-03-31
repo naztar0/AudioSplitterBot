@@ -178,7 +178,7 @@ def crossfade_merge(result_parts, files, title, result):
         prefix = f'[{"a" if i else ""}{i}][{i + 1}]'
         suffix = f'[a{i + 1}];' if i < count - 2 else ''
         acrossfade_filter += f'{prefix}acrossfade=d=1:c1=nofade:c2=cub{suffix}'
-    args.append(acrossfade_filter)
+    args.append(f'"{acrossfade_filter}"')
     args.extend([
         '-c:a', 'libmp3lame',
         '-q:a', '2',
