@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-30 22:41+0100\n"
+"POT-Creation-Date: 2024-05-14 14:13+0200\n"
 "PO-Revision-Date: 2024-03-29 04:23+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,101 +19,105 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: app/bot.py:28
+#: app/bot.py:29
 msgid "select_language"
 msgstr "Выберите язык"
 
-#: app/bot.py:38
+#: app/bot.py:40
 msgid "language_changed"
 msgstr "Язык изменен на русский"
 
-#: app/bot.py:43
+#: app/bot.py:45
 msgid "start_message"
 msgstr ""
 "Привет! Я могу разделить аудиофайл на отдельные каналы. Просто выберите "
 "режим обработки и отправьте мне аудиофайл"
 
-#: app/bot.py:54
+#: app/bot.py:56
 msgid "choose_mode"
 msgstr "Выберите режим обработки аудиофайла"
 
-#: app/bot.py:85
+#: app/bot.py:87
 msgid "choose_level"
 msgstr "Выберите уровень интенсивности обработки"
 
-#: app/bot.py:91
+#: app/bot.py:93
 msgid "send_audiofile"
 msgstr "Отправьте мне аудиофайл"
 
-#: app/bot.py:96
+#: app/bot.py:98
 msgid "file_too_big"
 msgstr "Файл слишком большой, максимум 20МБ"
 
-#: app/bot.py:98
+#: app/bot.py:100
 msgid "file_too_long"
 msgstr "Файл слишком длинный, максимум 6 минут"
 
-#: app/bot.py:108
+#: app/bot.py:110
 msgid "max_processes"
 msgstr "Вы достигли максимального количества процессов"
 
-#: app/bot.py:110
+#: app/bot.py:112
 msgid "processing"
 msgstr "Ваш файл обрабатывается, пожалуйста, подождите"
 
-#: app/utils/utils.py:48
+#: app/bot.py:116
+msgid "error_processing"
+msgstr "Произошла ошибка при обработке файла"
+
+#: app/utils/utils.py:49
 msgid "english"
 msgstr "🇬🇧 English"
 
-#: app/utils/utils.py:48
+#: app/utils/utils.py:49
 msgid "ukrainian"
 msgstr "🇺🇦 Українська"
 
-#: app/utils/utils.py:48
+#: app/utils/utils.py:49
 msgid "russian"
 msgstr "🇷🇺 Русский"
 
-#: app/utils/utils.py:52
+#: app/utils/utils.py:55
 msgid "vocals"
 msgstr "Вокал"
 
-#: app/utils/utils.py:53
+#: app/utils/utils.py:56
 msgid "voice"
 msgstr "Голос"
 
-#: app/utils/utils.py:54
+#: app/utils/utils.py:57
 msgid "drum"
 msgstr "Барабан"
 
-#: app/utils/utils.py:55
+#: app/utils/utils.py:58
 msgid "bass"
 msgstr "Бас"
 
-#: app/utils/utils.py:56
+#: app/utils/utils.py:59
 msgid "electric_guitar"
 msgstr "Электрогитара"
 
-#: app/utils/utils.py:57
+#: app/utils/utils.py:60
 msgid "acoustic_guitar"
 msgstr "Акустическая гитара"
 
-#: app/utils/utils.py:58
+#: app/utils/utils.py:61
 msgid "piano"
 msgstr "Пианино"
 
-#: app/utils/utils.py:59
+#: app/utils/utils.py:62
 msgid "synthesizer"
 msgstr "Синтезатор"
 
-#: app/utils/utils.py:62
+#: app/utils/utils.py:67
 msgid "low"
 msgstr "Низкий"
 
-#: app/utils/utils.py:63
+#: app/utils/utils.py:68
 msgid "middle"
 msgstr "Средний"
 
-#: app/utils/utils.py:64
+#: app/utils/utils.py:69
 msgid "high"
 msgstr "Высокий"
 
