@@ -162,7 +162,7 @@ def split_file(file_id, path):
             .filter('atrim', start=part * 60 - part, duration=60) \
             .output(str(parts_dir / f'{file_id}_{part}.mp3')) \
             .global_args('-loglevel', 'error') \
-            .run(str(ffmpeg_cmd))
+            .run(str(ffmpeg_cmd), overwrite_output=True)
         logging.debug(f'Part {part} done')
     return parts
 
