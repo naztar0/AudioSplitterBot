@@ -7,6 +7,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiogram.utils.i18n import gettext as _
+from aiogram.exceptions import TelegramAPIError
 
 from app import config, bot, router, dp
 from app.utils.database_connection import DatabaseConnection
@@ -109,7 +110,10 @@ async def set_audiofile(message, state):
         return await message.answer(_('max_processes'))
     await state.set_state(Form.processing)
     await message.answer(_('processing'))
-    await download_file(message.chat.id, message.audio, await state.get_data())
+    try:
+        await download_file(message.chat.id, message.audio, await state.get_data())
+    except TelegramAPIError:
+        await message.answer(_('error_processing'))
 
 
 async def on_startup():

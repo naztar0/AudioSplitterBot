@@ -3,6 +3,7 @@ import json
 import ffmpeg
 import logging
 import traceback
+import aiohttp
 from contextlib import suppress
 from time import time
 from aiogram import types
@@ -131,7 +132,12 @@ async def download_file(user_id: int, file: types.Audio, data):
         file_id = cursor.lastrowid
 
     destination_file = ensure_dir(files_dir / 'original') / f'{file_id}.mp3'
-    await bot.download(file, destination_file)
+    try:
+        await bot.download(file, destination_file)
+    except aiohttp.client_exceptions.ClientPayloadError as e:
+        logging.error(f'Error downloading file: {e}')
+        set_audiofile_status(file_id, 'error')
+        raise TelegramAPIError
     set_audiofile_status(file_id, 'await')
 
 
