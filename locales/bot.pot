@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-30 22:41+0100\n"
+"POT-Creation-Date: 2024-05-14 14:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,99 +17,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: app/bot.py:28
+#: app/bot.py:29
 msgid "select_language"
 msgstr ""
 
-#: app/bot.py:38
+#: app/bot.py:40
 msgid "language_changed"
 msgstr ""
 
-#: app/bot.py:43
+#: app/bot.py:45
 msgid "start_message"
 msgstr ""
 
-#: app/bot.py:54
+#: app/bot.py:56
 msgid "choose_mode"
 msgstr ""
 
-#: app/bot.py:85
+#: app/bot.py:87
 msgid "choose_level"
 msgstr ""
 
-#: app/bot.py:91
+#: app/bot.py:93
 msgid "send_audiofile"
 msgstr ""
 
-#: app/bot.py:96
+#: app/bot.py:98
 msgid "file_too_big"
 msgstr ""
 
-#: app/bot.py:98
+#: app/bot.py:100
 msgid "file_too_long"
 msgstr ""
 
-#: app/bot.py:108
+#: app/bot.py:110
 msgid "max_processes"
 msgstr ""
 
-#: app/bot.py:110
+#: app/bot.py:112
 msgid "processing"
 msgstr ""
 
-#: app/utils/utils.py:48
+#: app/bot.py:116
+msgid "error_processing"
+msgstr ""
+
+#: app/utils/utils.py:49
 msgid "english"
 msgstr ""
 
-#: app/utils/utils.py:48
+#: app/utils/utils.py:49
 msgid "ukrainian"
 msgstr ""
 
-#: app/utils/utils.py:48
+#: app/utils/utils.py:49
 msgid "russian"
 msgstr ""
 
-#: app/utils/utils.py:52
+#: app/utils/utils.py:55
 msgid "vocals"
 msgstr ""
 
-#: app/utils/utils.py:53
+#: app/utils/utils.py:56
 msgid "voice"
 msgstr ""
 
-#: app/utils/utils.py:54
+#: app/utils/utils.py:57
 msgid "drum"
 msgstr ""
 
-#: app/utils/utils.py:55
+#: app/utils/utils.py:58
 msgid "bass"
 msgstr ""
 
-#: app/utils/utils.py:56
+#: app/utils/utils.py:59
 msgid "electric_guitar"
 msgstr ""
 
-#: app/utils/utils.py:57
+#: app/utils/utils.py:60
 msgid "acoustic_guitar"
 msgstr ""
 
-#: app/utils/utils.py:58
+#: app/utils/utils.py:61
 msgid "piano"
 msgstr ""
 
-#: app/utils/utils.py:59
+#: app/utils/utils.py:62
 msgid "synthesizer"
 msgstr ""
 
-#: app/utils/utils.py:62
+#: app/utils/utils.py:67
 msgid "low"
 msgstr ""
 
-#: app/utils/utils.py:63
+#: app/utils/utils.py:68
 msgid "middle"
 msgstr ""
 
-#: app/utils/utils.py:64
+#: app/utils/utils.py:69
 msgid "high"
 msgstr ""
 
