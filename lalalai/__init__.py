@@ -45,9 +45,14 @@ class Api:
         return f'attachment; {file_expr}'
 
     def handle_response(self, res):
-        if res["status"] != "success":
+        if res['status'] != 'success':
             self.success = False
-            self.error = res["error"]
+            self.error = res['error']
+        if self.id is not None and 'result' in res:
+            task = res['result'][self.id]['task']
+            if task['state'] == 'error':
+                self.success = False
+                self.error = task['error']
 
     async def upload_file(self):
         headers = {'Content-Disposition': self.content_disposition()}
@@ -61,11 +66,18 @@ class Api:
     async def process(self):
         data = {
             'id': self.id,
-            'filter': self.level,
             'stem': self.stem,
-            'splitter': SPLITTERS[self.stem]
+            'splitter': SPLITTERS[self.stem],
+            'enhanced_processing_enabled': ENHANCE[self.stem],
+            'dereverb_enabled': False,
+            'noise_canceling_level': self.level,
+            'with_segments': False
         }
-        res = await self.session.post(self.api_url + '/preview/', data=data, timeout=10)
+        headers = {
+            'X-Request-Id': 'lalalai',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
+        }
+        res = await self.session.post(self.api_url + '/preview/', data=data, headers=headers, timeout=10)
         res = await res.json()
         self.handle_response(res)
 
