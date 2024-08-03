@@ -20,7 +20,7 @@ SPLITTERS = {
 
 
 class Api:
-    def __init__(self, filename: str, stem: str, level: int = 1, session=aiohttp.ClientSession()):
+    def __init__(self, filename: str, stem: str, level: int = 1, session=None):
         self.api_url = 'https://www.lalal.ai/api'
         self.filename = filename
         self.filepath = files_dir / 'original_parts' / filename
@@ -30,10 +30,10 @@ class Api:
         self.success = True
         self.error = None
         self.audio = Audio()
-        self.session = session
+        self.session = session or aiohttp.ClientSession()
 
     def __repr__(self):
-        return f'{self.filepath=}\n{self.id=}\n{self.error=}\n{self.audio=}'
+        return f'{self.filepath=}\n{self.id=}\n{self.success=}\n{self.error=}\n{self.audio=}'
 
     def content_disposition(self):
         try:
