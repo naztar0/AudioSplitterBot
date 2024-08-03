@@ -13,6 +13,7 @@ from app import config, bot, router, dp
 from app.utils.database_connection import DatabaseConnection
 from app.utils.utils import get_callback, CallbackFuncs, ButtonSet, download_file
 from app.utils.middlewares import DBI18nMiddleware
+from lalalai.audio import Audio
 
 
 class Form(StatesGroup):
@@ -83,8 +84,13 @@ async def callback_query_handler(callback_query: types.CallbackQuery, state: FSM
 
 async def set_stem(message, data, state):
     await state.update_data({'stem': data})
-    await state.set_state(Form.level)
-    await message.edit_text(_('choose_level'), reply_markup=ButtonSet(ButtonSet.INL_LEVEL))
+    if data == Audio.VOICE:
+        await state.set_state(Form.level)
+        await message.edit_text(_('choose_level'), reply_markup=ButtonSet(ButtonSet.INL_LEVEL))
+    else:
+        await state.update_data({'level': Audio.LEVEL_MID})
+        await state.set_state(Form.file)
+        await message.edit_text(_('send_audiofile'))
 
 
 async def set_level(message, data, state):
