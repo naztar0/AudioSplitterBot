@@ -11,8 +11,8 @@ class Audio(helper.Helper):
     ACOUSTIC_GUITAR = helper.Item()
     PIANO = helper.Item()
     SYNTHESIZER = helper.Item()
-    # STRINGS = helper.Item()
-    # WIND = helper.Item()
+    STRINGS = helper.Item()
+    WIND = helper.Item()
     LEVEL_LOW = 0
     LEVEL_MID = 1
     LEVEL_HIGH = 2

@@ -23,7 +23,7 @@ async def process_files(filename, file_id, stem, level, session):
             await api.check()
             logging.debug(f'File {filename} checked')
             await asyncio.sleep(3)
-        if api.error:
+        if not api.success:
             logging.error(f'Error in file {filename}: {api.error}')
             raise FileNotFoundError
         await api.download()
@@ -50,6 +50,11 @@ async def update_audio():
         file_id, user_id, title, stem, level = res
 
         parts = utils.split_file(file_id, files_dir / 'original' / f'{file_id}.mp3')
+
+        if not parts:
+            logging.error(f'Error splitting file {file_id}: no parts')
+            utils.set_audiofile_status(file_id, 'error')
+            continue
 
         files = [f'{file_id}_{part}.mp3' for part in range(parts)]
         logging.debug(f'File parts to upload: {parts}, {files}')

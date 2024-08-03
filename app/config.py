@@ -9,6 +9,7 @@ DEBUG = env.bool('DEBUG', default=False)
 MAX_USER_PROCESSES = env.int('MAX_USER_PROCESSES', default=2)
 MAX_FILE_SIZE = env.int('MAX_FILE_SIZE', default=20 * 1024 * 1024)  # 20 MB
 MAX_AUDIO_DURATION = env.int('MAX_AUDIO_DURATION', default=6 * 60)  # 6 minutes
+MIN_AUDIO_DURATION = env.int('MIN_AUDIO_DURATION', default=3)  # 3 seconds
 
 TG_TOKEN = env.str('TG_TOKEN')
 WEBAPP_HOST = env.str('WEBAPP_HOST', default='0.0.0.0')

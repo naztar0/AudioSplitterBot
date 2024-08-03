@@ -16,11 +16,26 @@ SPLITTERS = {
     Audio.ACOUSTIC_GUITAR: 'orion',
     Audio.PIANO: 'orion',
     Audio.SYNTHESIZER: 'phoenix',
+    Audio.STRINGS: 'phoenix',
+    Audio.WIND: 'phoenix',
+}
+
+ENHANCE = {
+    Audio.VOCALS: True,
+    Audio.VOICE: False,
+    Audio.DRUM: True,
+    Audio.BASS: False,
+    Audio.ELECTRIC_GUITAR: True,
+    Audio.ACOUSTIC_GUITAR: True,
+    Audio.PIANO: True,
+    Audio.SYNTHESIZER: False,
+    Audio.STRINGS: False,
+    Audio.WIND: False,
 }
 
 
 class Api:
-    def __init__(self, filename: str, stem: str, level: int = 1, session=aiohttp.ClientSession()):
+    def __init__(self, filename: str, stem: str, level: int = 1, session=None):
         self.api_url = 'https://www.lalal.ai/api'
         self.filename = filename
         self.filepath = files_dir / 'original_parts' / filename
@@ -30,10 +45,10 @@ class Api:
         self.success = True
         self.error = None
         self.audio = Audio()
-        self.session = session
+        self.session = session or aiohttp.ClientSession()
 
     def __repr__(self):
-        return f'{self.filepath=}\n{self.id=}\n{self.error=}\n{self.audio=}'
+        return f'{self.filepath=}\n{self.id=}\n{self.success=}\n{self.error=}\n{self.audio=}'
 
     def content_disposition(self):
         try:
@@ -45,9 +60,14 @@ class Api:
         return f'attachment; {file_expr}'
 
     def handle_response(self, res):
-        if res["status"] != "success":
+        if res['status'] != 'success':
             self.success = False
-            self.error = res["error"]
+            self.error = res['error']
+        if self.id is not None and 'result' in res:
+            task = res['result'][self.id]['task']
+            if task['state'] == 'error':
+                self.success = False
+                self.error = task['error']
 
     async def upload_file(self):
         headers = {'Content-Disposition': self.content_disposition()}
@@ -61,11 +81,18 @@ class Api:
     async def process(self):
         data = {
             'id': self.id,
-            'filter': self.level,
             'stem': self.stem,
-            'splitter': SPLITTERS[self.stem]
+            'splitter': SPLITTERS[self.stem],
+            'enhanced_processing_enabled': ENHANCE[self.stem],
+            'dereverb_enabled': False,
+            'noise_canceling_level': self.level,
+            'with_segments': False
         }
-        res = await self.session.post(self.api_url + '/preview/', data=data, timeout=10)
+        headers = {
+            'X-Request-Id': 'lalalai',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
+        }
+        res = await self.session.post(self.api_url + '/preview/', data=data, headers=headers, timeout=10)
         res = await res.json()
         self.handle_response(res)
 

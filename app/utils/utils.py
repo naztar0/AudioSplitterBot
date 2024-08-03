@@ -59,7 +59,9 @@ class ButtonSet(helper.Helper):
                     (_('electric_guitar'), Audio.ELECTRIC_GUITAR),
                     (_('acoustic_guitar'), Audio.ACOUSTIC_GUITAR),
                     (_('piano'), Audio.PIANO),
-                    (_('synthesizer'), Audio.SYNTHESIZER))
+                    (_('synthesizer'), Audio.SYNTHESIZER),
+                    (_('strings'), Audio.STRINGS),
+                    (_('wind'), Audio.WIND))
             builder.add(*(InlineKeyboardButton(
                 text=text, callback_data=set_callback(CallbackFuncs.STEM, data)
             ) for text, data in args))
@@ -164,6 +166,9 @@ def split_file(file_id, path):
             .global_args('-loglevel', 'error') \
             .run(str(ffmpeg_cmd), overwrite_output=True)
         logging.debug(f'Part {part} done')
+    last_part_duration = float(ffmpeg.probe(parts_dir / f'{file_id}_{parts - 1}.mp3', ffprobe_cmd)['format']['duration'])
+    if last_part_duration < 2:
+        parts -= 1
     return parts
 
 

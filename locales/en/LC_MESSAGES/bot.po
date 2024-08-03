@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 14:13+0200\n"
+"POT-Creation-Date: 2024-08-04 00:59+0200\n"
 "PO-Revision-Date: 2024-03-29 03:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -16,51 +16,55 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: app/bot.py:29
+#: app/bot.py:30
 msgid "select_language"
 msgstr "Select language"
 
-#: app/bot.py:40
+#: app/bot.py:41
 msgid "language_changed"
 msgstr "Language changed to English"
 
-#: app/bot.py:45
+#: app/bot.py:46
 msgid "start_message"
 msgstr ""
 "Hello! I can split an audio file into separate channels. Just choose the "
 "processing mode and send me an audio file"
 
-#: app/bot.py:56
+#: app/bot.py:57
 msgid "choose_mode"
 msgstr "Choose the mode for audio processing"
 
-#: app/bot.py:87
+#: app/bot.py:89
 msgid "choose_level"
 msgstr "Choose the level of processing strength"
 
-#: app/bot.py:93
+#: app/bot.py:93 app/bot.py:99
 msgid "send_audiofile"
 msgstr "Send me an audio file"
 
-#: app/bot.py:98
+#: app/bot.py:104
 msgid "file_too_big"
 msgstr "File is too big, max 20MB"
 
-#: app/bot.py:100
+#: app/bot.py:106
 msgid "file_too_long"
 msgstr "File is too long, max 6 minutes"
 
-#: app/bot.py:110
+#: app/bot.py:108
+msgid "file_too_short"
+msgstr "File is too short, min 3 seconds"
+
+#: app/bot.py:118
 msgid "max_processes"
 msgstr "You have reached the maximum number of processes"
 
-#: app/bot.py:112
+#: app/bot.py:120
 msgid "processing"
 msgstr "Your file is being processed, please wait"
 
-#: app/bot.py:116
+#: app/bot.py:124
 msgid "error_processing"
 msgstr "An error occurred while processing the file"
 
@@ -82,7 +86,7 @@ msgstr "Vocals"
 
 #: app/utils/utils.py:56
 msgid "voice"
-msgstr "Voice"
+msgstr "Voice & Noise"
 
 #: app/utils/utils.py:57
 msgid "drum"
@@ -108,15 +112,23 @@ msgstr "Piano"
 msgid "synthesizer"
 msgstr "Synthesizer"
 
-#: app/utils/utils.py:67
+#: app/utils/utils.py:63
+msgid "strings"
+msgstr "Strings"
+
+#: app/utils/utils.py:64
+msgid "wind"
+msgstr "Wind"
+
+#: app/utils/utils.py:69
 msgid "low"
 msgstr "Low"
 
-#: app/utils/utils.py:68
+#: app/utils/utils.py:70
 msgid "middle"
 msgstr "Middle"
 
-#: app/utils/utils.py:69
+#: app/utils/utils.py:71
 msgid "high"
 msgstr "High"
 
