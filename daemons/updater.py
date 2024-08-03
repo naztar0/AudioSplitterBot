@@ -51,6 +51,11 @@ async def update_audio():
 
         parts = utils.split_file(file_id, files_dir / 'original' / f'{file_id}.mp3')
 
+        if not parts:
+            logging.error(f'Error splitting file {file_id}: no parts')
+            utils.set_audiofile_status(file_id, 'error')
+            continue
+
         files = [f'{file_id}_{part}.mp3' for part in range(parts)]
         logging.debug(f'File parts to upload: {parts}, {files}')
 

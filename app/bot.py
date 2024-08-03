@@ -98,6 +98,8 @@ async def set_audiofile(message, state):
         return await message.reply(_('file_too_big'))
     if message.audio.duration > config.MAX_AUDIO_DURATION:
         return await message.reply(_('file_too_long'))
+    if message.audio.duration < config.MIN_AUDIO_DURATION:
+        return await message.reply(_('file_too_short'))
     with DatabaseConnection() as db:
         conn, cursor = db
         cursor.execute('SELECT COUNT(a.id) '

@@ -166,6 +166,9 @@ def split_file(file_id, path):
             .global_args('-loglevel', 'error') \
             .run(str(ffmpeg_cmd), overwrite_output=True)
         logging.debug(f'Part {part} done')
+    last_part_duration = float(ffmpeg.probe(parts_dir / f'{file_id}_{parts - 1}.mp3', ffprobe_cmd)['format']['duration'])
+    if last_part_duration < 2:
+        parts -= 1
     return parts
 
 
