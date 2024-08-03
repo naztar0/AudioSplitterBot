@@ -23,7 +23,7 @@ async def process_files(filename, file_id, stem, level, session):
             await api.check()
             logging.debug(f'File {filename} checked')
             await asyncio.sleep(3)
-        if api.error:
+        if not api.success:
             logging.error(f'Error in file {filename}: {api.error}')
             raise FileNotFoundError
         await api.download()
