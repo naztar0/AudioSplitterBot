@@ -16,6 +16,21 @@ SPLITTERS = {
     Audio.ACOUSTIC_GUITAR: 'orion',
     Audio.PIANO: 'orion',
     Audio.SYNTHESIZER: 'phoenix',
+    Audio.STRINGS: 'phoenix',
+    Audio.WIND: 'phoenix',
+}
+
+ENHANCE = {
+    Audio.VOCALS: True,
+    Audio.VOICE: False,
+    Audio.DRUM: True,
+    Audio.BASS: False,
+    Audio.ELECTRIC_GUITAR: True,
+    Audio.ACOUSTIC_GUITAR: True,
+    Audio.PIANO: True,
+    Audio.SYNTHESIZER: False,
+    Audio.STRINGS: False,
+    Audio.WIND: False,
 }
 
 

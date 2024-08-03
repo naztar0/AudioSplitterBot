@@ -59,7 +59,9 @@ class ButtonSet(helper.Helper):
                     (_('electric_guitar'), Audio.ELECTRIC_GUITAR),
                     (_('acoustic_guitar'), Audio.ACOUSTIC_GUITAR),
                     (_('piano'), Audio.PIANO),
-                    (_('synthesizer'), Audio.SYNTHESIZER))
+                    (_('synthesizer'), Audio.SYNTHESIZER),
+                    (_('strings'), Audio.STRINGS),
+                    (_('wind'), Audio.WIND))
             builder.add(*(InlineKeyboardButton(
                 text=text, callback_data=set_callback(CallbackFuncs.STEM, data)
             ) for text, data in args))
