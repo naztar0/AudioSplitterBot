@@ -28,3 +28,7 @@ MYSQL_USER = env.str('MYSQL_USER', default='')
 MYSQL_DB = env.str('MYSQL_DB', default='')
 
 BOT_ADMIN = env.int('BOT_ADMIN', default=0)
+
+CAPSOLVER_API_KEY = env.str('CAPSOLVER_API_KEY', default='')
+SERVICE_TURNSTILE_URL = env.str('SERVICE_TURNSTILE_URL', default='')
+SERVICE_TURNSTILE_TOKEN = env.str('SERVICE_TURNSTILE_TOKEN', default='')

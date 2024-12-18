@@ -35,7 +35,7 @@ ENHANCE = {
 
 
 class Api:
-    def __init__(self, filename: str, stem: str, level: int = 1, session=None):
+    def __init__(self, filename: str, stem: str, level: int = 1, session=None, captcha=None):
         self.api_url = 'https://www.lalal.ai/api'
         self.filename = filename
         self.filepath = files_dir / 'original_parts' / filename
@@ -46,6 +46,7 @@ class Api:
         self.error = None
         self.audio = Audio()
         self.session = session or aiohttp.ClientSession()
+        self.captcha = captcha
 
     def __repr__(self):
         return f'{self.filepath=}\n{self.id=}\n{self.success=}\n{self.error=}\n{self.audio=}'
@@ -86,7 +87,8 @@ class Api:
             'enhanced_processing_enabled': ENHANCE[self.stem],
             'dereverb_enabled': False,
             'noise_canceling_level': self.level,
-            'with_segments': False
+            'with_segments': False,
+            'turnstile-response': self.captcha
         }
         headers = {
             'X-Request-Id': 'lalalai',
