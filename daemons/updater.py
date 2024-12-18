@@ -9,12 +9,28 @@ from app.utils.file import ensure_dir
 from app.utils.database_connection import DatabaseConnection
 from app.misc import files_dir, ffprobe_cmd
 from app import bot
-from lalalai import Api
+from lalalai import Api as LalalaiApi
+from capsolver import Api as CapsolverApi
+
+
+async def get_captcha_token(session) -> str | None:
+    api = CapsolverApi(session)
+    await api.create_task()
+    while api.success and not api.result:
+        await api.check_task()
+        logging.debug(f'Checking captcha task {api.task_id}')
+        await asyncio.sleep(3)
+    if not api.success:
+        logging.error(f'Error solving captcha: {api.error}')
+        raise TimeoutError
+    logging.debug(f'Captcha solved: {api.result[:10]}...')
+    return api.result
 
 
 async def process_files(filename, file_id, stem, level, session):
     try:
-        api = Api(filename, stem, level, session)
+        captcha = await get_captcha_token(session)
+        api = LalalaiApi(filename, stem, level, session, captcha)
         await api.upload_file()
         logging.debug(f'File {filename} uploaded')
         await api.process()
