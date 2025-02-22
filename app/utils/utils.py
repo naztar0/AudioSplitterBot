@@ -4,6 +4,7 @@ import ffmpeg
 import logging
 import traceback
 import aiohttp
+import subprocess
 from contextlib import suppress
 from time import time
 from aiogram import types
@@ -108,9 +109,15 @@ async def exec_protected(func, *args, **kwargs):
     # noinspection PyBroadException
     try:
         return await func(*args, **kwargs)
-    except Exception:
+    except Exception as e:
+        stderr = ''
+        if isinstance(e, ffmpeg.Error):
+            logging.error(f'Error: {e.stderr.decode("utf-8")}')
+            stderr = e.stderr.decode('utf-8')
         with suppress(TelegramAPIError):
             await bot.send_message(config.BOT_ADMIN, traceback.format_exc()[-4096:])
+            if stderr:
+                await bot.send_message(config.BOT_ADMIN, stderr[-4096:])
 
 
 def set_audiofile_status(file_id, status):
@@ -172,9 +179,27 @@ def split_file(file_id, path):
     return parts
 
 
+def recompile_file(file_id):  # recompile file to ensure it's not corrupted
+    inp = files_dir / 'original' / f'{file_id}.mp3'
+    out = files_dir / 'original' / f'{file_id}_copy.mp3'
+    args = [
+        '-i', inp,
+        '-vn',
+        '-c:a', 'libmp3lame',
+        '-q:a', '2',
+        '-loglevel', 'error',
+        out,
+    ]
+    ffmpeg_command_line(*args)
+    inp.unlink()
+    out.rename(inp)
+
+
 def ffmpeg_command_line(*ffmpeg_args):
-    if os.system(f'{ffmpeg_cmd} {" ".join(ffmpeg_args)}') != 0:
-        raise RuntimeError('FFmpeg error')
+    p = subprocess.Popen([ffmpeg_cmd, *ffmpeg_args], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    if p.returncode != 0:
+        raise ffmpeg.Error('ffmpeg', out, err)
 
 
 def crossfade_merge(result_parts, files, title, result):
