@@ -206,7 +206,7 @@ def crossfade_merge(result_parts, files, title, result):
     if len(files) == 1:
         os.rename(result_parts / files[0], result)
         return
-    args = [f'-i {result_parts / filename}' for filename in files]
+    args = [item for filename in files for item in ('-i', result_parts / filename)]
     args.append('-filter_complex')
     acrossfade_filter = ''
     count = len(files)
@@ -214,13 +214,13 @@ def crossfade_merge(result_parts, files, title, result):
         prefix = f'[{"a" if i else ""}{i}][{i + 1}]'
         suffix = f'[a{i + 1}];' if i < count - 2 else ''
         acrossfade_filter += f'{prefix}acrossfade=d=1:c1=nofade:c2=cub{suffix}'
-    args.append(f'"{acrossfade_filter}"')
+    args.append(acrossfade_filter)
     args.extend([
         '-c:a', 'libmp3lame',
         '-q:a', '2',
         '-metadata', f'title="{title}"',
         '-loglevel', 'error',
-        str(result),
+        result,
     ])
-    logging.debug(f'ffmpeg {" ".join(args)}')
+    logging.debug(f'ffmpeg {args}')
     ffmpeg_command_line(*args)
