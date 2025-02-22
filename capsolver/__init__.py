@@ -4,8 +4,8 @@ from app import config
 
 class Api:
     def __init__(self, session=None):
-        self.api_url = 'https://api.2captcha.com'
-        self.type = 'TurnstileTaskProxyless'
+        self.api_url = 'https://api.capsolver.com'
+        self.type = 'AntiTurnstileTaskProxyLess'
         self.api_key = config.CAPSOLVER_API_KEY
         self.website_url = config.SERVICE_TURNSTILE_URL
         self.website_key = config.SERVICE_TURNSTILE_TOKEN
