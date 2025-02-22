@@ -65,6 +65,8 @@ async def update_audio():
     for res in result:
         file_id, user_id, title, stem, level = res
 
+        utils.recompile_file(file_id)
+
         parts = utils.split_file(file_id, files_dir / 'original' / f'{file_id}.mp3')
 
         if not parts:
