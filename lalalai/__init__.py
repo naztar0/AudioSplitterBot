@@ -8,13 +8,13 @@ from .audio import Audio
 
 
 SPLITTERS = {
-    Audio.VOCALS: 'orion',
-    Audio.VOICE: 'orion',
-    Audio.DRUM: 'orion',
-    Audio.BASS: 'orion',
-    Audio.ELECTRIC_GUITAR: 'orion',
-    Audio.ACOUSTIC_GUITAR: 'orion',
-    Audio.PIANO: 'orion',
+    Audio.VOCALS: 'perseus',
+    Audio.VOICE: 'perseus',
+    Audio.DRUM: 'perseus',
+    Audio.BASS: 'perseus',
+    Audio.ELECTRIC_GUITAR: 'perseus',
+    Audio.ACOUSTIC_GUITAR: 'perseus',
+    Audio.PIANO: 'perseus',
     Audio.SYNTHESIZER: 'phoenix',
     Audio.STRINGS: 'phoenix',
     Audio.WIND: 'phoenix',
