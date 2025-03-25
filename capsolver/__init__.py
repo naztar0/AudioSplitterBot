@@ -31,7 +31,6 @@ class Api:
         }
         res = await self.session.post(self.api_url + '/createTask', json=data, timeout=10)
         res = await res.json()
-        print(res)
         self.handle_response(res)
         if self.success:
             self.task_id = res['taskId']
