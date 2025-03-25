@@ -94,8 +94,10 @@ async def update_audio():
         try:
             utils.crossfade_merge(result_parts_stem, files, title, result_stem)
             utils.crossfade_merge(result_parts_no_stem, files, title, result_no_stem)
-        except RuntimeError as e:
+        except Exception as e:
             logging.error(f'Error merging files: {e}')
+            if isinstance(e, ffmpeg.Error):
+                logging.error(f'Error output: {e.stderr.decode("utf-8")}')
             utils.set_audiofile_status(file_id, 'error')
             continue
 

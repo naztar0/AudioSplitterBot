@@ -112,8 +112,8 @@ async def exec_protected(func, *args, **kwargs):
     except Exception as e:
         stderr = ''
         if isinstance(e, ffmpeg.Error):
-            logging.error(f'Error: {e.stderr.decode("utf-8")}')
             stderr = e.stderr.decode('utf-8')
+            logging.error(f'Error: {stderr}')
         with suppress(TelegramAPIError):
             await bot.send_message(config.BOT_ADMIN, traceback.format_exc()[-4096:])
             if stderr:
