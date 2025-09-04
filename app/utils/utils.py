@@ -89,6 +89,7 @@ def esc_md(s):
         return list(map(lambda x: esc_md(x), s))
     if isinstance(s, (int, float, bool)):
         return str(s)
+    return None
 
 
 def set_callback(func, data):
@@ -99,9 +100,9 @@ def get_callback(data):
     try:
         cd = CallbackData.unpack(data)
     except (ValueError, TypeError):
-        return
+        return None
     if cd.value is None or cd.func is None:
-        return
+        return None
     return cd.func, json.loads(cd.value)
 
 
@@ -155,7 +156,7 @@ def split_file(file_id, path):
     logging.debug(f'Duration: {duration}')
     if duration > config.MAX_AUDIO_DURATION:
         set_audiofile_status(file_id, 'error')
-        return
+        return None
 
     parts = (duration + duration // 60) / 60 + 1
     if parts.is_integer():
@@ -173,7 +174,10 @@ def split_file(file_id, path):
             .global_args('-loglevel', 'error') \
             .run(str(ffmpeg_cmd), overwrite_output=True)
         logging.debug(f'Part {part} done')
-    last_part_duration = float(ffmpeg.probe(parts_dir / f'{file_id}_{parts - 1}.mp3', ffprobe_cmd)['format']['duration'])
+    try:
+        last_part_duration = float(ffmpeg.probe(parts_dir / f'{file_id}_{parts - 1}.mp3', ffprobe_cmd)['format']['duration'])
+    except ffmpeg.Error:
+        return None
     if last_part_duration < 2:
         parts -= 1
     return parts
