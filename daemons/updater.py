@@ -1,13 +1,13 @@
 import ffmpeg
 import logging
 import asyncio
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 from aiogram import types, enums
 from aiogram import exceptions
 from app.utils import utils
 from app.utils.file import ensure_dir
 from app.utils.database_connection import DatabaseConnection
-from app.misc import files_dir, ffprobe_cmd
+from app.misc import files_dir, ffprobe_cmd, base_headers
 from app import bot
 from lalalai import Api as LalalaiApi
 from capsolver import Api as CapsolverApi
@@ -29,10 +29,10 @@ async def get_captcha_token(session) -> str | None:
 
 async def process_files(filename, file_id, stem, level, session):
     try:
-        captcha = await get_captcha_token(session)
-        api = LalalaiApi(filename, stem, level, session, captcha)
+        api = LalalaiApi(filename, stem, level, session)
         await api.upload_file()
         logging.debug(f'File {filename} uploaded')
+        api.captcha = await get_captcha_token(session)
         await api.process()
         logging.debug(f'File {filename} processed')
         while api.success and not api.audio:
@@ -78,7 +78,7 @@ async def update_audio():
         logging.debug(f'File parts to upload: {parts}, {files}')
 
         try:
-            async with ClientSession() as session:
+            async with ClientSession(headers=base_headers, timeout=ClientTimeout(total=10)) as session:
                 await asyncio.gather(*(
                     asyncio.create_task(
                         process_files(file, file_id, stem, level, session)

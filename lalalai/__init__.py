@@ -1,6 +1,4 @@
-import aiohttp
 import aiofiles
-from urllib.parse import quote
 
 from app.misc import files_dir
 from app.utils.file import ensure_dir
@@ -21,16 +19,16 @@ SPLITTERS = {
 }
 
 ENHANCE = {
-    Audio.VOCALS: True,
-    Audio.VOICE: False,
-    Audio.DRUM: True,
-    Audio.BASS: False,
-    Audio.ELECTRIC_GUITAR: True,
-    Audio.ACOUSTIC_GUITAR: True,
-    Audio.PIANO: True,
-    Audio.SYNTHESIZER: False,
-    Audio.STRINGS: False,
-    Audio.WIND: False,
+    Audio.VOCALS: 'true',
+    Audio.VOICE: 'false',
+    Audio.DRUM: 'true',
+    Audio.BASS: 'false',
+    Audio.ELECTRIC_GUITAR: 'true',
+    Audio.ACOUSTIC_GUITAR: 'true',
+    Audio.PIANO: 'true',
+    Audio.SYNTHESIZER: 'false',
+    Audio.STRINGS: 'false',
+    Audio.WIND: 'false',
 }
 
 
@@ -42,23 +40,15 @@ class Api:
         self.stem = stem
         self.level = level
         self.id = None
+        self.upload_id = None
         self.success = True
         self.error = None
         self.audio = Audio()
-        self.session = session or aiohttp.ClientSession()
+        self.session = session
         self.captcha = captcha
 
     def __repr__(self):
         return f'{self.filepath=}\n{self.id=}\n{self.success=}\n{self.error=}\n{self.audio=}'
-
-    def content_disposition(self):
-        try:
-            self.filename.encode('ascii')
-            file_expr = f'filename="{self.filename}"'
-        except UnicodeEncodeError:
-            quoted = quote(self.filename)
-            file_expr = f"filename*=utf-8''{quoted}"
-        return f'attachment; {file_expr}'
 
     def handle_response(self, res):
         if res['status'] != 'success':
@@ -71,13 +61,42 @@ class Api:
                 self.error = task['error']
 
     async def upload_file(self):
-        headers = {'Content-Disposition': self.content_disposition()}
+        url = await self._create_upload()
+        if not url:
+            return
+        await self._upload_file(url)
+        if not self.success:
+            return
+        await self._complete_upload()
+
+    async def _create_upload(self):
+        data = {
+            'file_name': self.filename,
+            'parts_count': 1
+        }
+        res = await self.session.post(self.api_url + '/upload/multipart/create/', data=data)
+        res = await res.json()
+        self.handle_response(res)
+        if not self.success:
+            return None
+        self.id = res['file_id']
+        self.upload_id = res['upload_id']
+        return res['upload_urls'][0]
+
+    async def _upload_file(self, upload_url):
+        headers = {'content-type': ''}
         with open(self.filepath, 'rb') as f:
-            res = await self.session.post(self.api_url + '/upload/', data=f, headers=headers, timeout=60)
-            res = await res.json()
-            self.handle_response(res)
-        if self.success:
-            self.id = res["id"]
+            res = await self.session.put(upload_url, data=f, headers=headers, timeout=60)
+        self.success = res.status == 200
+
+    async def _complete_upload(self):
+        data = {
+            'file_id': self.id,
+            'upload_id': self.upload_id
+        }
+        res = await self.session.post(self.api_url + '/upload/multipart/complete/', data=data)
+        res = await res.json()
+        self.handle_response(res)
 
     async def process(self):
         data = {
@@ -85,22 +104,18 @@ class Api:
             'stem': self.stem,
             'splitter': SPLITTERS[self.stem],
             'enhanced_processing_enabled': ENHANCE[self.stem],
-            'dereverb_enabled': False,
+            'dereverb_enabled': 'false',
             'noise_canceling_level': self.level,
-            'with_segments': False,
+            'with_segments': 'false',
             'turnstile-response': self.captcha
         }
-        headers = {
-            'X-Request-Id': 'lalalai',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
-        }
-        res = await self.session.post(self.api_url + '/preview/', data=data, headers=headers, timeout=10)
+        res = await self.session.post(self.api_url + '/preview/', data=data)
         res = await res.json()
         self.handle_response(res)
 
     async def check(self):
         data = {'id': self.id}
-        res = await self.session.post(self.api_url + '/check/', data=data, timeout=10)
+        res = await self.session.post(self.api_url + '/check/', data=data)
         res = await res.json()
         self.handle_response(res)
         if not self.success:
